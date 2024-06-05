@@ -10,12 +10,14 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask _groundLayer;
     private bool _resetJump=false;
     private PlayerAnimation _playerAnimation;
+    private SpriteRenderer _playerSprite;
     // Start is called before the first frame update
     void Start()
     {
         
         _rigid= GetComponent<Rigidbody2D>();
         _playerAnimation= GetComponent<PlayerAnimation>();
+        _playerSprite =GetComponentInChildren<SpriteRenderer>();
         
     }
 
@@ -31,7 +33,11 @@ public class Player : MonoBehaviour
    
     void Movement(){
          float move= Input.GetAxis("Horizontal");
-        
+        if(move>0){
+            Flip(true);
+        }else if(move<0){
+            Flip(false);
+        }
          if (Input.GetKeyDown(KeyCode.Space) && IsGrounded() == true) {
             _rigid.velocity=new Vector2(_rigid.velocity.x, _jumpForce);
         
@@ -56,6 +62,14 @@ public class Player : MonoBehaviour
         _resetJump =true;
         yield return new WaitForSeconds(0.1f);
         _resetJump =false;
+
+    }
+    void Flip(bool FaceRigth){
+        if(FaceRigth){
+            _playerSprite.flipX=false;
+        }else{
+            _playerSprite.flipX=true;
+        }
 
     }
 }
