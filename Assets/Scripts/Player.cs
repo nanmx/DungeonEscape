@@ -40,19 +40,23 @@ public class Player : MonoBehaviour
         }
          if (Input.GetKeyDown(KeyCode.Space) && IsGrounded() == true) {
             _rigid.velocity=new Vector2(_rigid.velocity.x, _jumpForce);
-        
+            _playerAnimation.Jump(true);
              StartCoroutine(ResetJumpRoutine());
         }
         _rigid.velocity = new Vector2(move * _speed, _rigid.velocity.y);
         _playerAnimation.Move(move);
+        
 
     }
     bool IsGrounded(){
          RaycastHit2D hitInfo=Physics2D.Raycast(transform.position, Vector2.down,0.06f,1<<8);
         Debug.DrawRay(transform.position, Vector2.down* 0.06f , Color.green);
         if(hitInfo.collider != null ) {
-            if(_resetJump==false)return true;
-           
+            if(_resetJump==false){
+                _playerAnimation.Jump(false);
+                return true;
+            
+            }           
         }
         return false;
         
