@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
             _playerAnimation.Jump(true);
              StartCoroutine(ResetJumpRoutine());
         }
+        if(IsGrounded()==true) _playerAnimation.Jump(false);
         _rigid.velocity = new Vector2(move * _speed, _rigid.velocity.y);
         _playerAnimation.Move(move);
         
@@ -53,11 +54,12 @@ public class Player : MonoBehaviour
         Debug.DrawRay(transform.position, Vector2.down* 0.06f , Color.green);
         if(hitInfo.collider != null ) {
             if(_resetJump==false){
-                _playerAnimation.Jump(false);
+                
                 return true;
             
             }           
         }
+       
         return false;
         
 
