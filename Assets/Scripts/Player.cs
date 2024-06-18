@@ -24,7 +24,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update(){
         Movement();
-       
+        if(Input.GetMouseButton(0)&& IsGrounded()==true){
+
+            _playerAnimation.Attack();
+        }
        
        
         
