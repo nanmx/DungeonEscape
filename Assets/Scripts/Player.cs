@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     private bool _resetJump=false;
     private PlayerAnimation _playerAnimation;
     private SpriteRenderer _playerSprite;
+    private SpriteRenderer _swordArcSprite;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,7 @@ public class Player : MonoBehaviour
         _rigid= GetComponent<Rigidbody2D>();
         _playerAnimation= GetComponent<PlayerAnimation>();
         _playerSprite =GetComponentInChildren<SpriteRenderer>();
+        _swordArcSprite= transform.GetChild(1).GetComponent<SpriteRenderer>();
         
     }
 
@@ -76,8 +78,18 @@ public class Player : MonoBehaviour
     void Flip(bool FaceRigth){
         if(FaceRigth){
             _playerSprite.flipX=false;
+            _swordArcSprite.flipY=false;
+            _swordArcSprite.flipX = false; 
+            Vector3 newpos= _swordArcSprite.transform.position;
+            newpos.x = 1.01f;
+            _swordArcSprite.transform.localPosition = newpos;
         }else{
             _playerSprite.flipX=true;
+            _swordArcSprite.flipY = true;
+            _swordArcSprite.flipX = true;
+            Vector3 newpos = _swordArcSprite.transform.position;
+            newpos.x = -1.01f;
+            _swordArcSprite.transform.localPosition = newpos;
         }
 
     }
